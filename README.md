@@ -40,6 +40,20 @@ In addition to our supplementary document, we provide an illustrative [web-video
 5. Download object detector and re-identifiaction Siamese network weights and MOTChallenge result files for ICCV 2019:
     1. Download zip file from [here](https://drive.google.com/open?id=1E0seC4zSdAsKUNScv4M0eAu7fG_v65_Q).
     2. Extract in `output` directory.
+    
+## Installation via Docker
+
+Make sure you have nvidia-docker installed. Clone the repository and download MOTChallenge data and object detector / re-identification weights as described above, then build the Dockerfile:
+
+```
+docker build -t tracktor .
+```
+
+Run the container and give the correct mount origins for the previously downloaded data:
+
+```
+docker run -itd --name tracktor_container --runtime=nvidia --mount type=bind,source={PATH_TO_MOT_DATA},target=/tracktor/data --mount type=bind,source={PATH_TO_WEIGHTS},target=/tracktor/output --rm tracktor:latest
+```
 
 ## Evaluate Tracktor++
 In order to configure, organize, log and reproduce our computational experiments we structured our code with the [Sacred](http://sacred.readthedocs.io/en/latest/index.html) framework. For a detailed explanation of the Sacred interface please read its documentation.
